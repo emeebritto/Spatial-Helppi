@@ -97,7 +97,8 @@ export default function LocationTracker() {
 
     useEffect(() => {
         if (posTarget != null && location != null) {
-            const targetDistResult = Math.hypot(posTarget.latitude - location.longitude, posTarget.latitude - location.longitude);
+            // [posTarget.longitude, posTarget.latitude], [location.latitude]
+            const targetDistResult = Math.hypot(posTarget.latitude - location.latitude, posTarget.longitude - location.longitude);
             setTargetDist(targetDistResult);            
         }
     }, [posTarget, location])
