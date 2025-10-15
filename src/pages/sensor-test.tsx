@@ -21,13 +21,6 @@ export default function LocationTracker() {
     const [error, setError] = useState<string>('');
 
 
-    const calcTargetDist = useCallback(() => {
-        if (posTarget != null && location != null) {
-            const targetDistResult = Math.hypot(posTarget.latitude - location.longitude, posTarget.latitude - location.longitude);
-            setTargetDist(targetDistResult);            
-        }
-    }, [posTarget, location])
-
 
     const defineTargetLocation = useCallback(() => {
         setPositionTarget(location);
@@ -54,7 +47,6 @@ export default function LocationTracker() {
                     source: 'high-accuracy',
                 });
                 setError('');
-                calcTargetDist();
             }, (err) => {
                 console.log({ err });
                 navigator.geolocation.getCurrentPosition(
@@ -67,7 +59,6 @@ export default function LocationTracker() {
                             source: 'standard',
                         });
                         setError('');
-                        calcTargetDist();
                     }, (fallbackErr) => {console.log({ fallbackErr })}, {
                         enableHighAccuracy: false,
                         timeout: 5000,
@@ -82,7 +73,7 @@ export default function LocationTracker() {
         );
 
         return id
-    }, [calcTargetDist]);
+    }, []);
 
     
     const stopTracking = useCallback((trackingId:number|null) => {
@@ -102,6 +93,14 @@ export default function LocationTracker() {
             stopTracking(trackingId);
         };
     }, [startTracking, stopTracking])
+
+
+    useEffect(() => {
+        if (posTarget != null && location != null) {
+            const targetDistResult = Math.hypot(posTarget.latitude - location.longitude, posTarget.latitude - location.longitude);
+            setTargetDist(targetDistResult);            
+        }
+    }, [posTarget, location])
 
 
 
