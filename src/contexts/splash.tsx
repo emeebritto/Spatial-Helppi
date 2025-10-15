@@ -1,6 +1,5 @@
 import React, { useContext, createContext } from "react";
 import { useState, useEffect } from "react";
-import { SplashScreen } from "@/components";
 import Styled from "styled-components";
 
 
