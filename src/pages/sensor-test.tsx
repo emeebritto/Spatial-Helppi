@@ -221,7 +221,7 @@ export default function LocationTracker() {
                         </div>
                     )}
                 </div>
-                <p>distance: {targetDist}</p>
+                <p>distance: {(targetDist * 10).toFixed(5)}</p>
             </div>
         </div>
     );
